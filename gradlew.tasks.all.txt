@@ -71,6 +71,7 @@ app:check - Runs all checks.
 app:connectedAndroidTest - Installs and runs instrumentation tests for all flavors on connected devices.
 app:connectedCheck - Runs all device checks on currently connected devices.
 app:connectedDebugAndroidTest - Installs and runs the tests for debug on connected devices.
+app:createDebugCoverageReport - Creates test coverage reports for the debug variant.
 app:deviceAndroidTest - Installs and runs instrumentation tests using all Device Providers.
 app:deviceCheck - Runs all device checks using Device Providers and Test Servers.
 app:lint - Runs lint on all variants.
@@ -118,6 +119,7 @@ app:compileReleaseShaders
 app:compileReleaseUnitTestJavaWithJavac
 app:compileReleaseUnitTestKotlin - Compiles the releaseUnitTest kotlin.
 app:consumeConfigAttr
+app:createDebugAndroidTestCoverageReport - Creates JaCoCo test coverage report from data gathered on the device.
 app:createDebugCompatibleScreenManifests
 app:createReleaseCompatibleScreenManifests
 app:extractProguardFiles
@@ -181,6 +183,7 @@ app:splitsDiscoveryTaskDebugAndroidTest
 app:splitsDiscoveryTaskRelease
 app:transformClassesWithDexBuilderForDebug
 app:transformClassesWithDexBuilderForDebugAndroidTest
+app:transformClassesWithJacocoForDebug
 app:transformClassesWithPreDexForRelease
 app:transformDexArchiveWithDexMergerForDebug
 app:transformDexArchiveWithDexMergerForDebugAndroidTest
@@ -200,5 +203,5 @@ app:validateSigningDebugAndroidTest
 app:writeDebugApplicationId
 app:writeReleaseApplicationId
 
-BUILD SUCCESSFUL in 0s
+BUILD SUCCESSFUL in 1s
 1 actionable task: 1 executed

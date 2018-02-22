@@ -1,13 +1,30 @@
 1. New project created.
 gradlew -version = 4.1
 
-Android Studio
---------------
 Local unit tests can be run with coverage in Android Studio.
 Unit test can be in any language, both Kotlin and Java tests are executed and coverage is calculated properly.
 Instrumented tests can't be run with coverage.
 
-Gradle tasks
-------------
 ./gradlew connectedCheck - Runs intrumentation tests on device and generates report without coverage in app/build/reports/androidTests/connected.
 ./gradlew test - Runs local tests, generates report without coverage in app/build/reports/tests/
+
+
+2. Adding
+
+android {
+    ...
+    buildTypes {
+        debug {
+            testCoverageEnabled = true
+        }
+       ...
+    }
+}
+
+This is adding following gradle tasks:
+app:createDebugCoverageReport - runs instrumented(???) tests
+    generates .ec report in app/build/outputs/code-coverage/connected/Pixel 2 XL - 8.1.0-coverage.ec
+    generates .html report in app/build/reports/coverage/debug
+app:createDebugAndroidTestCoverageReport - Creates JaCoCo test coverage report from data gathered on the device.
+    looks like doing the same
+app:transformClassesWithJacocoForDebug
