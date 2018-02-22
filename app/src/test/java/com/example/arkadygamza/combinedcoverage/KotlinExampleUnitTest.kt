@@ -9,9 +9,15 @@ import org.junit.Assert.*
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
-class ExampleUnitTest {
+class KotlinExampleUnitTest {
     @Test
     fun addition_isCorrect() {
         assertEquals(4, 2 + 2)
+    }
+
+    @Test
+    fun test_method1() {
+        val clazz = JavaClazz()
+        clazz.method1()
     }
 }
