@@ -21,4 +21,9 @@ class ExampleInstrumentedTest {
         val appContext = InstrumentationRegistry.getTargetContext()
         assertEquals("com.example.arkadygamza.combinedcoverage", appContext.packageName)
     }
+
+    @Test
+    fun integration_test1() {
+        MainActivity.f3()
+    }
 }
