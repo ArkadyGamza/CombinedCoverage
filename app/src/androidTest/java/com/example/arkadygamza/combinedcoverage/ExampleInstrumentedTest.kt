@@ -24,6 +24,7 @@ class ExampleInstrumentedTest {
 
     @Test
     fun integration_test1() {
-        MainActivity.f3()
+        val appContext = InstrumentationRegistry.getTargetContext()
+        InstrumentationTestTargetJava(appContext).testMeFromKotlin()
     }
 }

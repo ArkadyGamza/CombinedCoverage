@@ -1,13 +1,13 @@
 package com.example.arkadygamza.combinedcoverage;
 
-public class JavaClazz {
-    public int method1() {
+public class UnitTestTargetJava {
+    public int testMeFromKotlin() {
         int i = 0;
         i++;
         return i;
     }
 
-    public int method2() {
+    public int testMeFromJava() {
         int i = 0;
         i--;
         return i;

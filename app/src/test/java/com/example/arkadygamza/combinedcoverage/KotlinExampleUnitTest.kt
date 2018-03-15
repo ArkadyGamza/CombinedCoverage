@@ -17,7 +17,7 @@ class KotlinExampleUnitTest {
 
     @Test
     fun test_method1() {
-        val clazz = JavaClazz()
-        clazz.method1()
+        val clazz = UnitTestTargetJava()
+        clazz.testMeFromKotlin()
     }
 }

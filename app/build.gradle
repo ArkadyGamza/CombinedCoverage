@@ -4,7 +4,15 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'jacoco'
+
+jacoco {
+    toolVersion = '0.8.0'
+    reportsDir = file("$buildDir/MyVeryCustomReportsDir")
+}
+
 android {
+
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.example.arkadygamza.combinedcoverage"
@@ -34,4 +42,39 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+}
+
+
+task jacocoTestReport222(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
+
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+
+    def fileFilter = [ '**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', 'android/**/*.*' ]
+    def kotlinDebugTree = fileTree(dir: "$project.buildDir/tmp/kotlin-classes/debug", excludes: fileFilter)
+    def javaDebugTree = fileTree(dir: "$project.buildDir/intermediates/classes/debug", excludes: fileFilter)
+
+    def kotlinSrc = "$project.projectDir/src/main/kotlin"
+    def javaSrc = "$project.projectDir/src/main/java"
+
+    classDirectories = files([javaDebugTree, kotlinDebugTree])
+    sourceDirectories = files([javaSrc, kotlinSrc])
+    executionData = fileTree(dir: project.buildDir, includes: [
+            'jacoco/testDebugUnitTest.exec', 'outputs/code-coverage/connected/*coverage.ec'
+    ])
+
+    println "javaDebugTree === " + javaDebugTree.getFiles()
+    println "sourceDirectories ===" + sourceDirectories.getFiles()
+    println "classDirectories ==== " + classDirectories.getFiles()
+
+}
+
+task cccc(){
+    println "!!!!"
+}
+
+tasks.withType(Test) {
+    jacoco.includeNoLocationClasses = true
 }

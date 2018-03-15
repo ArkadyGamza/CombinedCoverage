@@ -8,7 +8,7 @@ Instrumented tests can't be run with coverage.
 ./gradlew connectedCheck - Runs intrumentation tests on device and generates report without coverage in app/build/reports/androidTests/connected.
 ./gradlew test - Runs local tests, generates report without coverage in app/build/reports/tests/
 
-
+--------------------------------------------------------------------------------
 2. Adding
 
 android {
@@ -28,3 +28,65 @@ app:createDebugCoverageReport - runs instrumented(???) tests
 app:createDebugAndroidTestCoverageReport - Creates JaCoCo test coverage report from data gathered on the device.
     looks like doing the same
 app:transformClassesWithJacocoForDebug
+
+--------------------------------------------------------------------------------
+Next: reading
+https://proandroiddev.com/unified-code-coverage-for-android-revisited-44789c9b722f
+https://docs.gradle.org/current/userguide/jacoco_plugin.html
+
+3. adding
+
+to the project build file:
+
+buildscript {
+    ...
+    dependencies {
+        classpath 'org.jacoco:org.jacoco.core:0.8.0'
+        ...
+    }
+}
+
+to the app build file:
+
+apply plugin: 'jacoco'
+jacoco {
+    toolVersion = '0.8.0'
+    reportsDir = file("$buildDir/MyVeryCustomReportsDir")
+}
+
+tasks.withType(Test) {
+    jacoco.includeNoLocationClasses = true
+}
+
+task jacocoTestReport222(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
+
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+
+    def fileFilter = [ '**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', 'android/**/*.*' ]
+    def kotlinDebugTree = fileTree(dir: "$project.buildDir/tmp/kotlin-classes/debug", excludes: fileFilter)
+    def javaDebugTree = fileTree(dir: "$project.buildDir/intermediates/classes/debug", excludes: fileFilter)
+
+    def kotlinSrc = "$project.projectDir/src/main/kotlin"
+    def javaSrc = "$project.projectDir/src/main/java"
+
+    classDirectories = files([javaDebugTree, kotlinDebugTree])
+    sourceDirectories = files([javaSrc, kotlinSrc])
+    executionData = fileTree(dir: project.buildDir, includes: [
+            'jacoco/testDebugUnitTest.exec', 'outputs/code-coverage/connected/*coverage.ec'
+    ])
+
+    println "javaDebugTree === " + javaDebugTree.getFiles()
+    println "sourceDirectories ===" + sourceDirectories.getFiles()
+    println "classDirectories ==== " + classDirectories.getFiles()
+
+}
+
+./gradlew jacocoTestReport222
+
+generates
+
+build/MyVeryCustomReportsDir/jacocoTestReport222
+    unified html report

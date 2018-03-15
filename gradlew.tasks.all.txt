@@ -138,6 +138,7 @@ app:generateReleaseBuildConfig
 app:generateReleaseResources
 app:generateReleaseResValues
 app:generateReleaseSources
+app:jacocoTestReport222
 app:javaPreCompileDebug
 app:javaPreCompileDebugAndroidTest
 app:javaPreCompileDebugUnitTest
@@ -203,5 +204,5 @@ app:validateSigningDebugAndroidTest
 app:writeDebugApplicationId
 app:writeReleaseApplicationId
 
-BUILD SUCCESSFUL in 1s
+BUILD SUCCESSFUL in 0s
 1 actionable task: 1 executed

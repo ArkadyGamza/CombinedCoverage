@@ -36,12 +36,4 @@ class MainActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
-
-    companion object {
-        fun f3(): Int {
-            var i = 0
-            i++
-            return i
-        }
-    }
 }
